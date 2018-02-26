@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.reactive.result.view.Rendering;
 
-import reactor.core.publisher.Mono;
-
 @Controller
 @RequestMapping("/persons")
 public class PersonController {
@@ -26,7 +24,9 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public Mono<Person> findById(@PathVariable String id) {
-        return this.personRepository.findById(id);
+    public Rendering findById(@PathVariable String id) {
+        return Rendering.view("person")
+                .modelAttribute("person", this.personRepository.findById(id))
+                .build();
     }
 }
