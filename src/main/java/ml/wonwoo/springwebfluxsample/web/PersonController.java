@@ -16,13 +16,6 @@ public class PersonController {
         this.personRepository = personRepository;
     }
 
-    @GetMapping
-    public Rendering findAll() {
-        return Rendering.view("index")
-                .modelAttribute("persons", this.personRepository.findAll())
-                .build();
-    }
-
     @GetMapping("/{id}")
     public Rendering findById(@PathVariable String id) {
         return Rendering.view("person")
